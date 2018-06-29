@@ -225,12 +225,15 @@ writeSCIATstim <- function(type, n, posside, Aside, catType, nPos, poswords, tgt
 
 writeSCIATjs <- function(type, n, posside, Aside, catType, catCol="green", nPos, 
                        poswords, tgtType, tgtCol="black", nA, nB, Awords, Bwords, 
-                       pause=250, errorpause=300, correct.error=F, note=F,
+                       pause=250, errorpause=300, correct.error=F, note=F, language="eng",
                        imgs, out) {
   
-  apath  <- system.file("codefiles", "SCcodeA.txt", package="iatgen") 
+  codefiles<-paste0("codefiles/",language)
+  apath  <- system.file(codefiles, "SCcodeA.txt", package="iatgen") 
   codeA <- as.matrix(readLines(apath, warn=F))
-
+  ipath  <- system.file(codefiles, "instructions.json", package="iatgen") 
+  instructions <- jsonlite::read_json(ipath)
+  
   
   ## if IAT uses images, build an image_srcs array
   if (tgtType == "images" || catType == "images"){
@@ -244,7 +247,7 @@ writeSCIATjs <- function(type, n, posside, Aside, catType, catCol="green", nPos,
     codeimage <- "\timage_srcs = [];"
   }
     
-  bpath  <- system.file("codefiles", "SCcodeB.txt", package="iatgen")
+  bpath  <- system.file(codefiles, "SCcodeB.txt", package="iatgen")
   codeB <- as.matrix(readLines(bpath, warn=F))
   codestim <- writeSCIATstim(type=type, 
                            n=n, 
@@ -261,7 +264,7 @@ writeSCIATjs <- function(type, n, posside, Aside, catType, catCol="green", nPos,
                           Bwords=Bwords, 
                           Aside=Aside, 
                           write.me=FALSE)
-  cpath  <- system.file("codefiles", "SCcodeC.txt", package="iatgen")
+  cpath  <- system.file(codefiles, "SCcodeC.txt", package="iatgen")
   codeC <- as.matrix(readLines(cpath, warn=F))
   temp <- rbind(codeA, codeimage, codeB, codestim, codeC)
   
@@ -316,10 +319,14 @@ writeSCIATjs <- function(type, n, posside, Aside, catType, catCol="green", nPos,
 
 writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, posstart, Astart, IATname="IAT", n=c(24, 72, 24, 72), 
                            catType, catCol="green", poswords, nPos, posimgs, tgtType, tgtCol="black", nA, nB, Awords, Bwords, Aimgs, Bimgs,
-                           easy.img=F, pause=250, errorpause=300, correct.error=F, note=F, imgs
+                           easy.img=F, pause=250, errorpause=300, correct.error=F, note=F, language="eng", imgs
                            ) {
   
 
+  codefiles<-paste0("codefiles/",language)
+  ipath  <- system.file(codefiles, "instructions.json", package="iatgen") 
+  instructions <- jsonlite::read_json(ipath)
+  
   # add error message if tgtType and catType are not both either "images" or "words 
 
   #DISABLED IN THIS FUCNTION, BUT HIGHER ORDER FUNCTIONS IMPLEMENT AT THAT LEVEL AND PASS DOWN. KEEP HERE FOR TESTING.
@@ -372,13 +379,13 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
   subDir <- paste(foldernum, " ",IATname,"_",suffix,sep="")
   
   if (file.exists(subDir)){
-    file.copy(system.file("codefiles", "SChtml_1.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SChtml_2.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SChtml_3.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SChtml_4.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SCcodeA.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SCcodeB.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SCcodeC.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SChtml_1.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SChtml_2.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SChtml_3.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SChtml_4.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SCcodeA.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SCcodeB.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SCcodeC.txt", package="iatgen"), file.path(mainDir, subDir))
     file.rename(frome="SChtml_1.txt", to = "html_1.txt")
     file.rename(frome="SChtml_2.txt", to = "html_2.txt")
     file.rename(frome="SChtml_3.txt", to = "html_3.txt")
@@ -386,13 +393,13 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
     setwd(file.path(mainDir, subDir))
   } else {
     dir.create(file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SChtml_1.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SChtml_2.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SChtml_3.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SChtml_4.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SCcodeA.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SCcodeB.txt", package="iatgen"), file.path(mainDir, subDir))
-    file.copy(system.file("codefiles", "SCcodeC.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SChtml_1.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SChtml_2.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SChtml_3.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SChtml_4.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SCcodeA.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SCcodeB.txt", package="iatgen"), file.path(mainDir, subDir))
+    file.copy(system.file(codefiles, "SCcodeC.txt", package="iatgen"), file.path(mainDir, subDir))
     setwd(file.path(mainDir, subDir)) 
   }
 
@@ -419,6 +426,7 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
              note=note,
              errorpause=errorpause,
              correct.error=correct.error,
+             language=language ,
              out = paste("Q",qids[1], " JavaScript_1.txt",sep=""))
   
   writeSCIATjs(type = "combined",
@@ -440,6 +448,7 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
              note=note,
              errorpause=errorpause,
              correct.error=correct.error,
+             language=language ,
              out = paste("Q",qids[2], " JavaScript_2.txt",sep=""))
   
   writeSCIATjs(type = "combined",
@@ -461,6 +470,7 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
              note=note,
              errorpause=errorpause,
              correct.error=correct.error,
+             language=language ,
              out = paste("Q",qids[3], " JavaScript_3.txt",sep=""))
   
   writeSCIATjs(type = "combined",
@@ -482,6 +492,7 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
              note=note,
              errorpause=errorpause,
              correct.error=correct.error,
+             language=language ,
              out = paste("Q",qids[4], " JavaScript_4.txt",sep=""))
 
   
@@ -501,10 +512,10 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
       bltemp <- gsub("or<div style=\"color: catCol;\">NEG</div>", "", bltemp) 
       bltemp <- gsub("catCol", catCol, bltemp)
       if (tolower(tgtCol) != "black" || tolower(catCol) != "black") {
-        bltemp <- gsub("<!-- colins -->", "The label/item colors may help you identify the appropriate category.", bltemp)
+        bltemp <- gsub("<!-- colins -->", instructions$labels, bltemp)
       }
       if (correct.error==T) {
-        bltemp <- gsub("<!--errorins-->", "Correct errors by hitting the other key.", bltemp)
+        bltemp <- gsub("<!--errorins-->", instructions$correcthint, bltemp)
       }
       writeLines(as.matrix(bltemp), paste("Q",qids[i], " ",blocknames[i],sep=""))
     }
@@ -521,10 +532,10 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
       bltemp <- gsub("NEG", posname, bltemp)
       bltemp <- gsub("catCol", catCol, bltemp)
       if (tolower(tgtCol) != "black" || tolower(catCol) != "black") {
-        bltemp <- gsub("<!-- colins -->", "The label/item colors may help you identify the appropriate category.", bltemp)
+        bltemp <- gsub("<!-- colins -->",instructions$labels, bltemp)
       }
       if (correct.error==T) {
-        bltemp <- gsub("<!--errorins-->", "Correct errors by hitting the other key.", bltemp)
+        bltemp <- gsub("<!--errorins-->", instructions$correcthint, bltemp)
       }
       writeLines(as.matrix(bltemp), paste("Q",qids[i], " ",blocknames[i],sep=""))
     }
@@ -541,10 +552,10 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
       bltemp <- gsub("or<div style=\"color: catCol;\">NEG</div>", "", bltemp) 
       bltemp <- gsub("catCol", catCol, bltemp)
       if (tolower(tgtCol) != "black" || tolower(catCol) != "black") {
-        bltemp <- gsub("<!-- colins -->", "The label/item colors may help you identify the appropriate category.", bltemp)
+        bltemp <- gsub("<!-- colins -->", instructions$labels, bltemp)
       }
       if (correct.error==T) {
-        bltemp <- gsub("<!--errorins-->", "Correct errors by hitting the other key.", bltemp)
+        bltemp <- gsub("<!--errorins-->",instructions$correcthint, bltemp)
       }
       writeLines(as.matrix(bltemp), paste("Q",qids[i], " ",blocknames[i],sep=""))
     }
@@ -561,10 +572,10 @@ writeSCIATblocks <- function(startqid=1, foldernum=1, posname, Aname, Bname, pos
       bltemp <- gsub("NEG", posname, bltemp) 
       bltemp <- gsub("catCol", catCol, bltemp)
       if (tolower(tgtCol) != "black" || tolower(catCol) != "black") {
-        bltemp <- gsub("<!-- colins -->", "The label/item colors may help you identify the appropriate category.", bltemp)
+        bltemp <- gsub("<!-- colins -->", instructions$labels, bltemp)
       }
       if (correct.error==T) {
-        bltemp <- gsub("<!--errorins-->", "Correct errors by hitting the other key.", bltemp)
+        bltemp <- gsub("<!--errorins-->",instructions$correcthint, bltemp)
       }
       writeLines(as.matrix(bltemp), paste("Q",qids[i], " ",blocknames[i],sep=""))
     }
@@ -608,6 +619,7 @@ writeSCIATfull <- function(IATname="IAT",
                          errorpause=300,
                          correct.error=T,
                          note=F,
+                         language="eng",
                          startqid = 1
 ) {
 
@@ -674,25 +686,25 @@ writeSCIATfull <- function(IATname="IAT",
                    posname = posname, Aname = Aname, Bname = Bname,
                    catType = catType, catCol=catCol, poswords = poswords, nPos = nPos,
                    tgtType = tgtType, tgtCol=tgtCol, Awords = Awords, Bwords = Bwords, nA = nA, nB = nB, 
-                   pause=pause, errorpause=errorpause, correct.error=correct.error, note=note, imgs = imgs)
+                   pause=pause, errorpause=errorpause, correct.error=correct.error, note=note, imgs = imgs,language=language )
     
     writeSCIATblocks(startqid=(startqid+4), posstart="left", Astart="right", IATname=IATname, foldernum=2, n=n,
                      posname = posname, Aname = Aname, Bname = Bname,
                      catType = catType, catCol=catCol, poswords = poswords, nPos = nPos,
                      tgtType = tgtType, tgtCol=tgtCol, Awords = Awords, Bwords = Bwords, nA = nA, nB = nB, 
-                     pause=pause, errorpause=errorpause, correct.error=correct.error, note=note, imgs = imgs)
+                     pause=pause, errorpause=errorpause, correct.error=correct.error, note=note, imgs = imgs,language=language )
     
     writeSCIATblocks(startqid=(startqid+8), posstart="left", Astart="left", IATname=IATname, foldernum=3, n=n,
                      posname = posname, Aname = Aname, Bname = Bname,
                      catType = catType, catCol=catCol, poswords = poswords, nPos = nPos,
                      tgtType = tgtType, tgtCol=tgtCol, Awords = Awords, Bwords = Bwords, nA = nA, nB = nB, 
-                     pause=pause, errorpause=errorpause, correct.error=correct.error, note=note, imgs = imgs)
+                     pause=pause, errorpause=errorpause, correct.error=correct.error, note=note, imgs = imgs,language=language )
     
     writeSCIATblocks(startqid=(startqid+12), posstart="right", Astart="left", IATname=IATname, foldernum=4, n=n,
                      posname = posname, Aname = Aname, Bname = Bname,
                      catType = catType, catCol=catCol, poswords = poswords, nPos = nPos,
                      tgtType = tgtType, tgtCol=tgtCol, Awords = Awords, Bwords = Bwords, nA = nA, nB = nB, 
-                     pause=pause, errorpause=errorpause, correct.error=correct.error, note=note, imgs = imgs)
+                     pause=pause, errorpause=errorpause, correct.error=correct.error, note=note, imgs = imgs,language=language )
 
   
   
