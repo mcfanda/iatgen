@@ -1,4 +1,4 @@
-iatgen (1.3.0)
+iatgen (1.2.0 with translation options)
 ==============
 
 iatgen (pronounced "I A T gen") is an R package and Shiny App that
