@@ -124,7 +124,7 @@ Ti chiediamo di rispondere <em> il più velocemente possibile </em> facendo il m
 Quando sei pronto premi la barra spaziatrice per iniziare.
 <br>
 <br>
-Part 1 of 7</p>
+Parte 1 di 7</p>
 </div>
 <p class="note" id="note"></p>
 </div>

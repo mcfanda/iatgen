@@ -109,20 +109,20 @@ h2.err {
 <h2 class="err" id="error"></h2>
 
 <div class="load">
-<p id="loading">Loading all the content...
+<p id="loading">Caricamento dei contenuti...
 <br>
 <br>
-This should take less than 1 minute</p>
+Ti preghiamo di attendere</p>
 </div>
 
 <div class="instruct" id="instructions">
-<p>Notice that one of the categories from before has switched sides. Please practice this new configuration now. Remember to try to go as <em>fast as you can</em> while making as few errors as possible. <!--errorins--> 
+<p>Fai caso che una delle categorie è ora dall'altro lato dello schermo. Fai pratica con le nuove posizioni delle categorie. Cerca di rispondere <em> il più velocemente possibile </em> facendo il minor numero di errori possibile <!--errorins-->
 <br>
 <br>
-When you are ready, please press the [Space] bar to begin.
+Quando sei pronto premi la barra spaziatrice per iniziare.
 <br>
 <br>
-Part 3 of 4</p>
+Parte 3 di 4</p>
 </div>
 <p class="note" id="note"></p>
 </div>

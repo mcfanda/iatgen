@@ -110,23 +110,22 @@ h2.err {
 <h2 class="err" id="error"></h2>
 
 <div class="load">
-<p id="loading">Loading all the content...
+<p id="loading">Caricamento dei contenuti...
 <br>
 <br>
-This should take less than 1 minute</p>
+Ti preghiamo di attendere</p>
 </div>
 
 <div class="instruct" id="instructions">
-<p>Instructions: Place your left and right index fingers on the <span style="font-weight: strong">E</span> and <span style="font-weight: strong">I</span> keys. At the top of the screen are 3 categories. In the task, words and/or images appear in the middle of the screen. <br><br>When the word/image belongs to the category/categories on the left, press the <span style="font-weight: bold">E</span> key as fast as you can. When it belongs to the category/categories on the right, press the <span style="font-weight: bold">I</span> key as fast as you can. If you make an error, a red <span style="font-weight: bold; color: red">X</span> will appear. <!--errorins--> <!-- colins -->
+<p>Istruzioni: Posiziona il dito indice della mano sinistra sul tasto <span style="font-weight: strong">E</span> e l'indice della mano destra sul tasto <span style="font-weight: strong">I</span>. Sullo schermo in alto ci sono tre categorie. Nel compito, parole e/o immagini appariranno al centro dello schermo. <br><br>Quando la parola/immagine appartiene alla categoria sulla sinistra premi il tasto <span style="font-weight: bold">E</span> il più rapidamente possibile. Quando la parola/immagine appartiene alla categoria sulla destra, premi il tasto <span style="font-weight: bold">I</span> il più rapidamente possibike. Se fai un errore, un <span style="font-weight: bold; color: red">X</span> rossa apparirà sullo schermo. <!--errorins-->
+<br>
+Ti chiediamo di rispondere <em> il più velocemente possibile </em> facendo il minor numero di errori possibile.
 <br>
 <br>
-Please try to go as <em>fast as you can</em> while making as few errors as possible.
+Quando sei pronto premi la barra spaziatrice per iniziare.
 <br>
 <br>
-When you are ready, please press the [Space] bar to begin.
-<br>
-<br>
-Part 1 of 4</p>
+Parte 1 of 4</p>
 
 </div>
 <p class="note" id="note"></p>
