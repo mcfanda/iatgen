@@ -1,0 +1,7 @@
+{
+  "correct.error": "Press E or I to advance to the next word/image. Correct mistakes by pressing the other key",
+ "no.correct.error": "Press E or I to advance to the next word/image",
+ "labels": "The label/item colors may help you identify the appropriate category.",
+ "correcthint": "Correct errors by hitting the other key."
+}
+

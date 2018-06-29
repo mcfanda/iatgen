@@ -1,4 +1,4 @@
-iatgen (1.2.0)
+iatgen (1.3.0)
 ==============
 
 iatgen (pronounced "I A T gen") is an R package and Shiny App that
@@ -227,6 +227,13 @@ left with negative). Thus, “Q9 RN2” is the second block in the IAT where
 Target A starts on the right side, initially paired with negative (i.e.,
 incompatible block comes first). Researchers should carefully consult
 our manuscript prior to use.
+
+
+Translations
+--------
+
+The default language is English. Different languages can be implemented by translating the source files in the `codefiles/eng` folder. A new language `xxx` can be implemented by creating a `codefiles/xxx` folder, copying in it all files in the `codefiles/eng` folder and translate the text in them. The option "language=xxx" should be set when the IAT is produced. At the moment, Italian language is available. 
+
 
 Analysis
 --------

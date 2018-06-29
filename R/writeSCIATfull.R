@@ -275,16 +275,16 @@ writeSCIATjs <- function(type, n, posside, Aside, catType, catCol="green", nPos,
   #add note below IAT window
   if(correct.error==T && note==T){
     temp <- gsub("note.innerHTML = \"\";",
-                 "note.innerHTML = \"Press E or I to advance to the next word/image. Correct mistakes by pressing the other key.\";",
+                 paste0('note.innerHTML = \"', instructions$correct.error,'.\";'),
                  temp) 
   } 
   if(correct.error==F && note==T){
     temp <- gsub("note.innerHTML = \"\";",
-                 "note.innerHTML = \"Press E or I to advance to the next word/image.\";",
+                 paste0('note.innerHTML = \"', instructions$no.correct.error,'.\";'),
                  temp) 
   }
   
-  #replace the default 250 ms intertrial pause with one set by user. Greenwald et al 1998 settled on 250 ms
+    #replace the default 250 ms intertrial pause with one set by user. Greenwald et al 1998 settled on 250 ms
   temp <- gsub(250, pause, temp)
   
   #replace the default 300 ms error pause with one set by the user.  Greenwald et al 1998 settled on 300 ms
