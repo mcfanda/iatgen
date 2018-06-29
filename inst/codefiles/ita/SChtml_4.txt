@@ -104,7 +104,6 @@ h2.err {
 	<div style="color: tgtCol;">tgtA</div>
 	oppure
 	<div style="color: catCol;">NEG</div>
-
 </div>
 
 
